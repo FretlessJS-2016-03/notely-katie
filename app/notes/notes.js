@@ -21,8 +21,8 @@
         templateUrl: '/notes/notes-form.html'
       });
   }
-NotesController.$inject = ['$scope'];
-  function NotesController($scope) {
-    $scope.message="I <3 Angular."
+NotesController.$inject = ['$state'];
+  function NotesController($state) {
+    $state.go('notes.form');
   }
 })();
