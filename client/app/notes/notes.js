@@ -21,8 +21,13 @@
         templateUrl: '/notes/notes-form.html'
       });
   }
-NotesController.$inject = ['$state'];
-  function NotesController($state) {
+NotesController.$inject = ['$scope','$state',
+ 'NotesService'];
+  function NotesController($scope,$state,
+    NotesService) {
+    NotesService.fetch(function() {
+      $scope.notes=NotesService.getNotes();
+    });
     $state.go('notes.form');
   }
 })();

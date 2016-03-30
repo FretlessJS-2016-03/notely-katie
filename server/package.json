@@ -1,0 +1,19 @@
+{
+  "name": "notelyserver",
+  "version": "0.1.0",
+  "description": "Node backend for a note-taking app.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node_modules/.bin/supervisor app.js"
+  },
+  "author": "Katie Hanway",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.13.4",
+    "mongoose": "^4.4.10"
+  },
+  "devDependencies": {
+    "supervisor": "^0.9.1"
+  }
+}
