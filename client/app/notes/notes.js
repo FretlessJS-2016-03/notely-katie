@@ -2,7 +2,7 @@
   angular.module('notely.notes', [
     'ui.router'
   ])
-    .config(notesConfig);
+  .config(notesConfig);
 
   notesConfig.$inject = ['$stateProvider'];
   function notesConfig($stateProvider) {
@@ -11,23 +11,31 @@
       .state('notes', {
         url: '/notes',
         templateUrl: '/notes/notes.html',
-        //template: '<h1>Notely</h1><p>{{ message }}</p><div ui-view></div>',
-        //templateUrl: '/notes/notes.html',
         controller: NotesController
       })
 
       .state('notes.form', {
-        url:'/:noteId',
+        url: '/:noteId',
         templateUrl: '/notes/notes-form.html'
       });
   }
-NotesController.$inject = ['$scope','$state',
- 'NotesService'];
-  function NotesController($scope,$state,
-    NotesService) {
-    NotesService.fetch(function() {
-      $scope.notes=NotesService.getNotes();
+
+  NotesController.$inject = ['$scope', '$state', 'NotesService'];
+  function NotesController($scope, $state, NotesService) {
+
+    NotesService.fetch().then(function() {
+      $scope.notes = NotesService.getNotes();
     });
+
+    $scope.note ={
+      title: 'Static note',
+      body_html: 'Something something something.'
+    };
+
+    $scope.save=function() {
+      console.log($scope.note.title);
+    };
+
     $state.go('notes.form');
   }
 })();
