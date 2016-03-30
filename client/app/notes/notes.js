@@ -33,7 +33,7 @@
     };
 
     $scope.save=function() {
-      console.log($scope.note.title);
+      NotesService.create($scope.note);
     };
 
     $state.go('notes.form');
