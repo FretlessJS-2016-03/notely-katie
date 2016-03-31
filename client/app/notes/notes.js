@@ -1,3 +1,4 @@
+
 (function() {
   angular.module('notely.notes', [
     'ui.router'
@@ -28,21 +29,20 @@
 
   NotesController.$inject = ['$scope', '$state', 'NotesService'];
   function NotesController($scope, $state, NotesService) {
-    $scope.note = {};
     $scope.notes = NotesService.getNotes();
-
-
-
-
-
-
     $state.go('notes.form');
   }
+
   NotesFormController.$inject = ['$scope', '$state', 'NotesService'];
   function NotesFormController($scope, $state, NotesService) {
     $scope.note = NotesService.findById($state.params.noteId);
-    $scope.save=function() {
-      NotesService.create($scope.note);
+    $scope.save = function() {
+      if ($scope.note._id) {
+        NotesService.update($scope.note);
+      }
+      else {
+        NotesService.create($scope.note);
+      }
     };
   }
 })();

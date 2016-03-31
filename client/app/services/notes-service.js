@@ -17,7 +17,7 @@
 
           // Failure
           function(response) {
-          console.log('aww, snap:' + response);
+            console.log('aww, snap:' + response);
           }
         );
     };
@@ -27,20 +27,34 @@
     };
     _this.create= function(note) {
       return $http.post('http://localhost:3030/notes', {
-          note: note
+        note: note
       })  .then(function(response) {
-    _this.notes.unshift(response.data.note);
-    });
+        _this.notes.unshift(response.data.note);
+      });
     };
+
+    _this.update = function(note) {
+      return $http.put('http://localhost:3030/notes/' + note._id, {
+        note: {
+          title: note.title,
+          body_html: note.body_html
+        }
+
+      })  .then(function(response) {
+        _this.notes.unshift(response.data.note);
+      });
+
+    };
+
     _this.findById=function(noteId) {
       for (var i = 0; i<_this.notes.length; i++) {
         //if the IDs match, return the currentnote
         //the i is the counter
         if(_this.notes[i]._id === noteId) {
-            return angular.copy(_this.notes[i]);
+          return angular.copy(_this.notes[i]);
         }
       }
-        return {};
+      return {};
     };
   }
 }());
