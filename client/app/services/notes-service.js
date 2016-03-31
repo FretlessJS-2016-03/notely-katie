@@ -27,11 +27,15 @@
     };
 
     _this.create = function(note) {
-      return $http.post('http://localhost:3030/notes', {
+      var creationPromise = $http.post('http://localhost:3030/notes', {
         note: note
-      }).then(function(response) {
+      });
+
+      creationPromise.then(function(response) {
         _this.notes.unshift(response.data.note);
       });
+
+      return creationPromise;
     };
 
     _this.update = function(note) {
@@ -41,8 +45,24 @@
           body_html: note.body_html
         }
       }).then(function(response) {
-        _this.replaceNote(response.data.note);  // making this work
+        _this.replaceNote(response.data.note);
       });
+    };
+
+    _this.delete = function(note) {
+      return $http.delete('http://localhost:3030/notes/' + note._id
+      ).then(function(response) {
+        _this.removeNote(response.data.note);
+      });
+    };
+
+    _this.removeNote = function(note) {
+      for (var i = 0; i < _this.notes.length; i++) {
+        if (_this.notes[i]._id === note._id) {
+          _this.notes.splice(i, 1);
+          return;
+        }
+      }
     };
 
     _this.replaceNote = function(updatedNote) {

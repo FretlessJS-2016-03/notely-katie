@@ -1,6 +1,7 @@
 (function() {
   angular.module('notely.notes', [
-    'ui.router'
+    'ui.router',
+    'textAngular'
   ])
   .config(notesConfig);
 
@@ -40,8 +41,15 @@
         NotesService.update($scope.note);
       }
       else {
-        NotesService.create($scope.note);
+        NotesService.create($scope.note).then(function(response) {
+          $state.go('notes.form', { noteId: response.data.note._id });
+        });
       }
+    };
+    $scope.delete = function() {
+      NotesService.delete($scope.note).then(function() {
+        $state.go('notes.form', { noteId: undefined });
+      });
     };
   }
 })();

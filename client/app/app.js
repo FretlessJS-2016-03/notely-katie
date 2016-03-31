@@ -4,12 +4,10 @@
     'notely.notes'
   ]);
 
-  function notelyConfig( $urlRouterProvider) {
+  function notelyConfig($urlRouterProvider) {
     $urlRouterProvider.otherwise('/notes/');
-
-
   }
 
-  notelyConfig.$inject = [ '$urlRouterProvider'];
+  notelyConfig.$inject = ['$urlRouterProvider'];
   notelyApp.config(notelyConfig);
 })();
