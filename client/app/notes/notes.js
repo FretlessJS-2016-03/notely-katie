@@ -22,10 +22,11 @@
 
   NotesController.$inject = ['$scope', '$state', 'NotesService'];
   function NotesController($scope, $state, NotesService) {
-   $scope.note={};
+    $scope.note={};
 
     NotesService.fetch().then(function() {
       $scope.notes = NotesService.getNotes();
+      $scope.note = NotesService.findById($state.params.noteId);
     });
 
     $scope.save=function() {
@@ -36,6 +37,8 @@
       $scope.note={};
     };
 
-    $state.go('notes.form');
+      //the note with that ID
+
+   $state.go('notes.form');
   }
 })();

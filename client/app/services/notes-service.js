@@ -28,10 +28,19 @@
     _this.create= function(note) {
       return $http.post('http://localhost:3030/notes', {
           note: note
-      })
-          .then(function(response) {
-      _this.notes.unshift(response.data.note);
+      })  .then(function(response) {
+    _this.notes.unshift(response.data.note);
     });
+    };
+    _this.findById=function(noteId) {
+      for (var i = 0; i<_this.notes.length; i++) {
+        //if the IDs match, return the currentnote
+        //the i is the counter
+        if(_this.notes[i]._id === noteId) {
+            return _this.notes[i];
+        }
+      }
+        return {};
     };
   }
 }());
