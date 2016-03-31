@@ -17,7 +17,7 @@
 
           // Failure
           function(response) {
-            console.log('aww, snap:' + response);
+          console.log('aww, snap:' + response);
           }
         );
     };
@@ -37,7 +37,7 @@
         //if the IDs match, return the currentnote
         //the i is the counter
         if(_this.notes[i]._id === noteId) {
-            return _this.notes[i];
+            return angular.copy(_this.notes[i]);
         }
       }
         return {};
